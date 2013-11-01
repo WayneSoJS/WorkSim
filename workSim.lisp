@@ -6,9 +6,6 @@
 	(pr "")
 )
 
-(defun getName(x)
-	(if (string= x "") name x)
-)
 
 (defun splash-screen()
 	(ln)
@@ -55,10 +52,8 @@
 )
 
 (setq water 100)
-(setq raft-health 100)
 (setq day 1)
 (setq health 100)
-(setq name "friend")
 
 (defun start-loop()
 	(loop (game-loop))
