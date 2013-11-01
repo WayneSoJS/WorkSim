@@ -76,29 +76,15 @@
 	(sleep 1)
 
 	(ln)
-	(pr "what would you like to do?")
 
-	(pr "(w) wait")
-	(pr "(h) watch the horizon")
-	(pr "(b) berate a core member of your team")
-	(pr "(q) quit your job")
-	(ln)
+	(user-action '(
+		("w" "wait" next-day)
+		("h" "watch the horizon" next-day)
+		("b" "berate a core member of your team" next-day)
+		("q" "quit your job" chicken-out)
 
-	(setq continue (read-line))
-
-	(when (string= continue "q") (chicken-out))
-	(when (string= continue "b") (next-day))	
-	(when (string= continue "w") (next-day))	
-	(when (string= continue "h") (next-day))
-
-	; (user-action '(
-	; 	("w" "wait" next-day)
-	; 	("h" "watch the horizon" next-day)
-	; 	("b" "berate a core member of your team" next-day)
-	; 	("q" "quit your job" chicken-out)
-
-	; 	)
-	; )
+		)
+	)
 
 	(ln)
 
@@ -106,19 +92,30 @@
 
 (defun user-action(x)
 
+	(let ((n 0))
+    (loop
+      (when (= n (length x)) (return))
 
-	(pr "(w) wait")
-	(pr "(h) watch the horizon")
-	(pr "(b) berate a core member of your team")
-	(pr "(q) quit your job")
+      (setq opt (nth n x))
+      (format t "(~A) ~A~%" (nth 0 opt) (nth 1 opt))
+
+      (incf n))
+  )
+
 	(ln)
 
 	(setq continue (read-line))
 
-	(when (string= continue "q") (chicken-out))
-	(when (string= continue "b") (next-day))	
-	(when (string= continue "w") (next-day))	
-	(when (string= continue "h") (next-day))
+	(let ((n 0))
+    (loop
+      (when (= n (length x)) (return))
+
+      (setq opt (nth n x))
+      (when (string= continue (nth 0 opt)) (apply (nth 2 opt) ()))
+
+      (incf n))
+  )
+
 )
 
 (splash-screen)
