@@ -77,7 +77,7 @@
 
 	(ln)
 
-	(user-action '(
+	(set-user-action '(
 		("w" "wait" next-day)
 		("h" "watch the horizon" next-day)
 		("b" "berate a core member of your team" next-day)
@@ -90,7 +90,7 @@
 
 )
 
-(defun user-action(x)
+(defun set-user-action(x)
 
 	(let ((n 0))
     (loop
